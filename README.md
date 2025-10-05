@@ -52,6 +52,11 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 
 추후 엔티티 확장 시 이 구조를 유지하며 DDD 레이어를 세분화합니다.
 
+## 🔐 패스워드 해싱 구성
+- `support.security.PasswordHasher`가 BCrypt 기반 해싱/검증/재해싱 여부 판단을 담당합니다.
+- `security.password.bcrypt-strength`(기본 12, 테스트 4) 프로퍼티로 강도를 제어하며, 환경 변수 `SECURITY_BCRYPT_STRENGTH`로 재정의할 수 있습니다.
+- `user.application.EmailAccountRegistrationService`가 이메일 계정 등록 시 해싱을 적용하고, Issue #3에서 복잡도·유출 검증 절차를 추가할 계획입니다.
+
 ## 🧪 테스트 & 빌드
 ```bash
 JAVA_HOME=$(/usr/libexec/java_home -v 17) ./gradlew test

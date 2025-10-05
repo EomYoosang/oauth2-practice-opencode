@@ -14,3 +14,7 @@ spring:
   sql:
     init:
       mode: never
+
+security:
+  password:
+    bcrypt-strength: 4

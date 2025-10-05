@@ -54,3 +54,7 @@ jwt:
     ttl-seconds: ${JWT_ACCESS_TTL:900}
   refresh-token:
     ttl-seconds: ${JWT_REFRESH_TTL:1209600}
+
+security:
+  password:
+    bcrypt-strength: ${SECURITY_BCRYPT_STRENGTH:12}
