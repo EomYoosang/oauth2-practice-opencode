@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: ${PROD_JDBC_URL}
+    username: ${PROD_JDBC_USERNAME}
+    password: ${PROD_JDBC_PASSWORD}
+  data:
+    redis:
+      host: ${PROD_REDIS_HOST}
+      port: ${PROD_REDIS_PORT:6379}
+      password: ${PROD_REDIS_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  web:
+    cors:
+      allowed-origins: ${PROD_CORS_ALLOWED_ORIGINS:https://app.example.com}
+
+server:
+  forward-headers-strategy: native
+
+logging:
+  level:
+    root: WARN
+    com.eomyoosang.oauth2: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+  endpoint:
+    health:
+      show-details: when_authorized

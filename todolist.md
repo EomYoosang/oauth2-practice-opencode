@@ -3,7 +3,7 @@
 ## 0. Foundation
 - [x] 확정된 도메인 패키지 구조 수립 (`auth`, `user`, `token`, `provider`, `config`, `support`) 및 Rule 기반 DDD 디렉토리 반영
 - [x] Spring Security, OAuth2 Client, Redis, Validation, Lombok 등 필수 의존성 검토 및 Gradle 설정 확정
-- [ ] 애플리케이션 공통 설정 작성 (`application.yml` 기본값, 프로필 분기, CORS 정책 뼈대)
+- [x] 애플리케이션 공통 설정 작성 (`application.yml` 기본값, 프로필 분기, CORS 정책 뼈대)
 
 ## 1. 데이터 모델링
 - [ ] `User`, `EmailAccount`, `GoogleAccount`, `KakaoAccount`, `AppleAccount` 엔티티 및 연관관계 설계 (LAZY, Builder 적용)

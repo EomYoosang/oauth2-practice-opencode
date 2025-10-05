@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DEV_JDBC_URL}
+    username: ${DEV_JDBC_USERNAME}
+    password: ${DEV_JDBC_PASSWORD}
+  data:
+    redis:
+      host: ${DEV_REDIS_HOST}
+      port: ${DEV_REDIS_PORT:6379}
+      password: ${DEV_REDIS_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  web:
+    cors:
+      allowed-origins: ${DEV_CORS_ALLOWED_ORIGINS:https://dev.example.com}
+
+logging:
+  level:
+    com.eomyoosang.oauth2: INFO
+
+jwt:
+  refresh-token:
+    ttl-seconds: ${DEV_JWT_REFRESH_TTL:1209600}
