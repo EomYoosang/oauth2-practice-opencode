@@ -5,7 +5,7 @@ import org.springframework.data.repository.Repository;
 
 public interface UserRepository extends Repository<User, UUID> {
 
-    boolean existsByEmail(String email);
+    boolean existsByEmailAccount_Email(String email);
 
     User save(User user);
 }
