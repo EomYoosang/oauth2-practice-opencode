@@ -47,7 +47,7 @@ class EmailSignupServiceTests {
 
     @Test
     void shouldRegisterUserWhenEmailAvailable() {
-        when(userRepository.existsByEmail(command.email())).thenReturn(false);
+        when(userRepository.existsByEmailAccount_Email(command.email())).thenReturn(false);
         when(registrationService.register(any(User.class), any(), any())).thenAnswer(invocation -> {
             User user = invocation.getArgument(0);
             user.registerEmailAccount(EmailAccount.builder()
@@ -71,7 +71,7 @@ class EmailSignupServiceTests {
 
     @Test
     void shouldThrowWhenEmailAlreadyExists() {
-        when(userRepository.existsByEmail(command.email())).thenReturn(true);
+        when(userRepository.existsByEmailAccount_Email(command.email())).thenReturn(true);
 
         assertThatThrownBy(() -> emailSignupService.register(command))
                 .isInstanceOf(EmailAlreadyRegisteredException.class);
@@ -82,7 +82,7 @@ class EmailSignupServiceTests {
 
     @Test
     void shouldPropagateInvalidPasswordException() {
-        when(userRepository.existsByEmail(command.email())).thenReturn(false);
+        when(userRepository.existsByEmailAccount_Email(command.email())).thenReturn(false);
         doThrow(new InvalidPasswordException(List.of("정책 위반")))
                 .when(registrationService).register(any(User.class), any(), any());
 
