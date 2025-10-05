@@ -72,7 +72,7 @@ class EmailSignupControllerTests {
     @Test
     @DisplayName("이미 존재하는 이메일은 409와 U1000 에러 코드를 반환한다")
     void shouldReturnConflictWhenEmailDuplicated() throws Exception {
-        doThrow(new EmailAlreadyRegisteredException("user@example.com"))
+        doThrow(new EmailAlreadyRegisteredException())
                 .when(emailSignupService).register(any(EmailSignupCommand.class));
 
         mockMvc.perform(post("/auth/register/email")
