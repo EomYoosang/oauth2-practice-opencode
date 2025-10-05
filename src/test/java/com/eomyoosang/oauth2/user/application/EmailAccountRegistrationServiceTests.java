@@ -1,7 +1,9 @@
 package com.eomyoosang.oauth2.user.application;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import com.eomyoosang.oauth2.support.security.InvalidPasswordException;
 import com.eomyoosang.oauth2.support.security.PasswordHasher;
 import com.eomyoosang.oauth2.user.domain.EmailAccount;
 import com.eomyoosang.oauth2.user.domain.User;
@@ -24,13 +26,26 @@ class EmailAccountRegistrationServiceTests {
                 .displayName("테스트 사용자")
                 .build();
 
-        EmailAccount account = registrationService.register(user, "user@example.com", "RawPass123!");
+        EmailAccount account = registrationService.register(user, "user@example.com", "StrongPass123!");
 
         assertThat(account.getEmail()).isEqualTo("user@example.com");
         assertThat(account.getPasswordHash())
                 .isNotBlank()
-                .isNotEqualTo("RawPass123!");
-        assertThat(passwordHasher.matches("RawPass123!", account.getPasswordHash())).isTrue();
+                .isNotEqualTo("StrongPass123!");
+        assertThat(passwordHasher.matches("StrongPass123!", account.getPasswordHash())).isTrue();
         assertThat(user.getEmailAccount()).isNotNull();
+    }
+
+    @Test
+    void shouldRejectWeakPassword() {
+        User user = User.builder()
+                .displayName("테스트 사용자")
+                .build();
+
+        assertThatThrownBy(() ->
+                registrationService.register(user, "user@example.com", "weakpass"))
+                .isInstanceOf(InvalidPasswordException.class)
+                .hasMessageContaining("최소");
+        assertThat(user.getEmailAccount()).isNull();
     }
 }
