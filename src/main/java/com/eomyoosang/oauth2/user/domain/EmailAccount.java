@@ -42,7 +42,7 @@ public class EmailAccount extends PrimaryKeyEntity {
     private LocalDateTime passwordChangedAt;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", nullable = false, unique = true, columnDefinition = "BINARY(16)")
     private User user;
 
     @Builder
