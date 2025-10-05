@@ -6,12 +6,12 @@
 - [x] 애플리케이션 공통 설정 작성 (`application.yml` 기본값, 프로필 분기, CORS 정책 뼈대)
 
 ## 1. 데이터 모델링
-- [x] `User`, `EmailAccount`, `GoogleAccount`, `KakaoAccount`, `AppleAccount` 엔티티 및 연관관계 설계 (LAZY, Builder 적용) (#1)
-- [x] 패스워드 해싱 처리용 지원 컴포넌트 정의 (BCrypt) 및 엔티티 저장 로직 연동 (#2)
-- [x] 비밀번호 정책/복잡도/유출 검사 정책 수립 및 검증기 구현 계획 수립 (#3)
+- [x] `User`, `EmailAccount`, `GoogleAccount`, `KakaoAccount`, `AppleAccount` 엔티티 및 연관관계 설계 (LAZY, Builder 적용)
+- [x] 패스워드 해싱 처리용 지원 컴포넌트 정의 (BCrypt) 및 엔티티 저장 로직 연동
+- [x] 비밀번호 정책/복잡도/유출 검사 정책 수립 및 검증기 구현 계획 수립
 
 ## 2. 인증 흐름 (이메일)
-- [ ] 이메일 회원가입 DTO/Validator/Controller/Service 작성 (테스트 선행)
+- [x] 이메일 회원가입 DTO/Validator/Controller/Service 작성 (테스트 선행)
 - [ ] 이메일 인증 토큰 발급·저장·검증 로직 구현 (`auth:ev:{token}`, GETDEL 원자화)
 - [ ] 이메일 로그인 및 Refresh Token 발급/회전 서비스 구현 (deviceId 고려)
 - [ ] 비밀번호 재설정 요청/확정 API 구현 (쿨다운 및 단일 사용 처리)

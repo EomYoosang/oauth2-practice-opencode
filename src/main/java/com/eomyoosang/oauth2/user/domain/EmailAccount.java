@@ -62,20 +62,6 @@ public class EmailAccount extends PrimaryKeyEntity {
         this.passwordChangedAt = passwordChangedAt;
     }
 
-    public void updatePassword(String encodedPassword, LocalDateTime changedAt) {
-        this.passwordHash = Objects.requireNonNull(encodedPassword, "encodedPassword must not be null");
-        this.passwordChangedAt = Objects.requireNonNull(changedAt, "changedAt must not be null");
-    }
-
-    public void markVerified(LocalDateTime verifiedAt) {
-        this.verified = true;
-        this.verifiedAt = Objects.requireNonNull(verifiedAt, "verifiedAt must not be null");
-    }
-
-    public void recordLogin(LocalDateTime loginAt) {
-        this.lastLoginAt = Objects.requireNonNull(loginAt, "loginAt must not be null");
-    }
-
     void attachTo(User user) {
         if (this.user != null && !this.user.equals(user)) {
             throw new IllegalStateException("Email account is already assigned to another user");

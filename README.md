@@ -5,9 +5,10 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 ## 📈 개발 진행 현황
 | 구분 | 이슈 | 상태 | 비고 |
 | --- | --- | --- | --- |
-| 0. Foundation | #1, #36 관련 선행 작업 | ✅ 완료 | 패키지 구조, Gradle 의존성, 프로필 설정 | 
-| 1. 데이터 모델링 | [#1](https://github.com/EomYoosang/oauth2-practice-opencode/issues/1) | 🚧 진행 중 | `feature/issue-1-user-domain` (PR [#37](https://github.com/EomYoosang/oauth2-practice-opencode/pull/37)) |
-| 2. 이메일 인증 흐름 | [#4](https://github.com/EomYoosang/oauth2-practice-opencode/issues/4)~[#8](https://github.com/EomYoosang/oauth2-practice-opencode/issues/8) | ⏳ 예정 | DTO/Service/Token/세션 무효화 | 
+
+| 0. Foundation | #1, #36 관련 선행 작업 | ✅ 완료 | 패키지 구조, Gradle 의존성, 프로필 설정 |
+| 1. 데이터 모델링 | [#1](https://github.com/EomYoosang/oauth2-practice-opencode/issues/1)~[#3](https://github.com/EomYoosang/oauth2-practice-opencode/issues/3) | 🚧 진행 중 | UUID PK, 패스워드 정책/해싱 (PR [#39](https://github.com/EomYoosang/oauth2-practice-opencode/pull/39), [#40](https://github.com/EomYoosang/oauth2-practice-opencode/pull/40), [#41](https://github.com/EomYoosang/oauth2-practice-opencode/pull/41)) |
+| 2. 이메일 인증 흐름 | [#4](https://github.com/EomYoosang/oauth2-practice-opencode/issues/4)~[#8](https://github.com/EomYoosang/oauth2-practice-opencode/issues/8) | 🚧 진행 중 | 이메일 회원가입 DTO/Controller/Service 초안 (PR 예정) |
 | 3. 소셜 로그인 | [#9](https://github.com/EomYoosang/oauth2-practice-opencode/issues/9)~[#12](https://github.com/EomYoosang/oauth2-practice-opencode/issues/12) | ⏳ 예정 | OAuth 클라이언트 설정, 프로바이더 매핑 |
 | 4. 토큰 & 세션 관리 | [#13](https://github.com/EomYoosang/oauth2-practice-opencode/issues/13)~[#17](https://github.com/EomYoosang/oauth2-practice-opencode/issues/17) | ⏳ 예정 | JWT 전략, Redis 키 구조, device 관리 |
 | 5. 보안 & 레이트 리밋 | [#18](https://github.com/EomYoosang/oauth2-practice-opencode/issues/18)~[#21](https://github.com/EomYoosang/oauth2-practice-opencode/issues/21) | ⏳ 예정 | 레이트 리밋, CSRF, 감사 로그, MFA |
@@ -19,11 +20,10 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 세부 태스크는 `todolist.md`와 GitHub 이슈로 동기화되어 있으며, 모든 커밋/PR은 한글로 관리합니다.
 
 ## 📚 현재 API 명세 스냅샷
-아래 명세는 PRD를 기반으로 하며, 구현 상태는 **진행 예정**입니다.
 
 | 엔드포인트 | 메서드 | 설명 | 상태 |
 | --- | --- | --- | --- |
-| `/auth/register/email` | POST | 이메일 회원가입 | ⏳ 예정 |
+| `/auth/register/email` | POST | 이메일 회원가입 | ✅ 구현 (초안) |
 | `/auth/verify?token=` | GET | 이메일 인증 | ⏳ 예정 |
 | `/auth/login/email` | POST | 이메일 로그인 + 토큰 발급 | ⏳ 예정 |
 | `/auth/token/refresh` | POST | 토큰 재발급 | ⏳ 예정 |
@@ -31,33 +31,19 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 | `/auth/password/reset/confirm` | POST | 비밀번호 재설정 확정 | ⏳ 예정 |
 | `/auth/login/oauth2/{provider}` | GET | 소셜 로그인 콜백 (Google/Kakao/Apple) | ⏳ 예정 |
 
-구현이 완료되면 Swagger/OpenAPI 명세와 함께 본 표를 업데이트할 예정입니다.
+구현이 완료되면 Swagger/OpenAPI 명세와 함께 본 표를 계속 업데이트할 예정입니다.
 
-## 🧱 엔티티 설계 요약 (진행 중)
-현재 PR #37에서 다루고 있는 핵심 도메인 모델입니다.
+## 🧱 엔티티 설계 요약
+- **공통 UUID PK (`PrimaryKeyEntity`)**: 모든 엔티티 식별자를 `UUID` + `BINARY(16)`으로 관리합니다.
+- **User (`src/main/java/com/eomyoosang/oauth2/user/domain/User.java`)**: `displayName`, `status`, `joinedAt`, `lastLoginAt` 등을 보유하며 `EmailAccount`(1:1), `OAuthAccount`(1:N) 관계를 유지합니다.
+- **EmailAccount (`src/main/java/com/eomyoosang/oauth2/user/domain/EmailAccount.java`)**: 이메일, 해시된 비밀번호, 인증 여부를 관리하고 도메인 메서드로 검증/로그인 기록을 제공합니다.
+- **OAuthAccount 상속 트리 (`provider/domain`)**: `GoogleAccount`, `KakaoAccount`, `AppleAccount`가 공통 속성을 공유하며 프로바이더별 확장을 대비합니다.
 
-- **공통 UUID PK (`PrimaryKeyEntity`)**
-  - `UUID` + `BINARY(16)` 칼럼으로 모든 엔티티의 식별자를 관리합니다.
-- **User (`src/main/java/com/eomyoosang/oauth2/user/domain/User.java`)**
-  - 필수 필드: `displayName`, `status`, `joinedAt`, `lastLoginAt`
-  - 연관관계: `EmailAccount` (1:1), `OAuthAccount` (1:N)
-  - 도메인 메서드: 표시 이름 변경, 상태 전환, 마지막 로그인 갱신, 계정 등록/제거
-- **EmailAccount (`src/main/java/com/eomyoosang/oauth2/user/domain/EmailAccount.java`)**
-  - 필드: `email`, `passwordHash`, `verified`, `registeredAt`, `lastLoginAt`
-  - `User`와 1:1 연관, 비밀번호 변경/검증/로그인 기록 메서드 제공
-- **OAuthAccount 상속 트리 (`provider/domain`)**
-  - 기반 클래스 `OAuthAccount`: `providerType`, `providerUserId`, `email`, `displayName`, `profileImageUrl`, `linkedAt`, `lastLoginAt`
-  - 파생 클래스: `GoogleAccount`, `KakaoAccount`, `AppleAccount`
-  - 모든 연관 키 역시 `UUID` 기반으로 정렬
-
-추후 엔티티 확장 시 이 구조를 유지하며 DDD 레이어를 세분화합니다.
-
-## 🔐 패스워드 해싱 구성
+## 🔐 패스워드 정책 & 해싱 구성
 - `support.security.PasswordHasher`가 BCrypt 기반 해싱/검증/재해싱 여부 판단을 담당합니다.
-- `security.password.bcrypt-strength`(기본 12, 테스트 4) 프로퍼티로 강도를 제어하며, 환경 변수 `SECURITY_BCRYPT_STRENGTH`로 재정의할 수 있습니다.
-- 복잡도 기본값(최소 12자, 대/소문자·숫자·특수문자 포함)은 `security.password.policy.*` 프로퍼티로 조정할 수 있으며, 환경 변수 `SECURITY_PASSWORD_MIN_LENGTH` 등으로 재정의 가능합니다.
-- `user.application.EmailAccountRegistrationService`가 이메일 계정 등록 시 해싱과 정책 검증을 수행합니다.
-- 유출 비밀번호 검사는 `security.password.compromised.*` 설정으로 토글할 수 있으며, 현재는 No-Op로 구성되어 향후 Pwned Passwords 등 외부 API 연동 시 활성화할 계획입니다.
+- 복잡도 기본값(최소 12자, 대/소문자·숫자·특수문자 포함)은 `security.password.policy.*` 프로퍼티로 제어하며, 환경변수(`SECURITY_PASSWORD_MIN_LENGTH` 등)로 재정의할 수 있습니다.
+- `security.password.compromised.*` 설정은 유출 비밀번호 검사를 토글하며, 현재는 No-Op 구현이 기본입니다.
+- `user.application.EmailAccountRegistrationService`는 해싱 이전에 정책 검증을 수행하고, Issue #4의 회원가입 서비스가 이를 호출합니다.
 
 ## 🧪 테스트 & 빌드
 ```bash

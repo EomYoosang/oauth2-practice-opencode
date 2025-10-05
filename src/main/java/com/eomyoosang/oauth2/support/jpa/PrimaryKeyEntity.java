@@ -7,9 +7,6 @@ import jakarta.persistence.MappedSuperclass;
 import java.util.UUID;
 import org.hibernate.annotations.UuidGenerator;
 
-/**
- * Common base to provide a UUID primary key shared by all entities.
- */
 @MappedSuperclass
 public abstract class PrimaryKeyEntity {
 

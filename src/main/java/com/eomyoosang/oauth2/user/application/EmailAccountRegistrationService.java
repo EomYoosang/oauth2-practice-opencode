@@ -26,6 +26,7 @@ public class EmailAccountRegistrationService {
 
         passwordPolicyValidator.validateOrThrow(rawPassword);
         String hashedPassword = passwordHasher.hash(rawPassword);
+
         EmailAccount account = EmailAccount.builder()
                 .email(email)
                 .passwordHash(hashedPassword)
