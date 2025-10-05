@@ -5,6 +5,7 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 ## 📈 개발 진행 현황
 | 구분 | 이슈 | 상태 | 비고 |
 | --- | --- | --- | --- |
+
 | 0. Foundation | #1, #36 관련 선행 작업 | ✅ 완료 | 패키지 구조, Gradle 의존성, 프로필 설정 |
 | 1. 데이터 모델링 | [#1](https://github.com/EomYoosang/oauth2-practice-opencode/issues/1)~[#3](https://github.com/EomYoosang/oauth2-practice-opencode/issues/3) | 🚧 진행 중 | UUID PK, 패스워드 정책/해싱 (PR [#39](https://github.com/EomYoosang/oauth2-practice-opencode/pull/39), [#40](https://github.com/EomYoosang/oauth2-practice-opencode/pull/40), [#41](https://github.com/EomYoosang/oauth2-practice-opencode/pull/41)) |
 | 2. 이메일 인증 흐름 | [#4](https://github.com/EomYoosang/oauth2-practice-opencode/issues/4)~[#8](https://github.com/EomYoosang/oauth2-practice-opencode/issues/8) | 🚧 진행 중 | 이메일 회원가입 DTO/Controller/Service 초안 (PR 예정) |
@@ -19,6 +20,7 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 세부 태스크는 `todolist.md`와 GitHub 이슈로 동기화되어 있으며, 모든 커밋/PR은 한글로 관리합니다.
 
 ## 📚 현재 API 명세 스냅샷
+
 | 엔드포인트 | 메서드 | 설명 | 상태 |
 | --- | --- | --- | --- |
 | `/auth/register/email` | POST | 이메일 회원가입 | ✅ 구현 (초안) |

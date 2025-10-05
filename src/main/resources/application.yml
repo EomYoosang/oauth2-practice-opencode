@@ -54,3 +54,18 @@ jwt:
     ttl-seconds: ${JWT_ACCESS_TTL:900}
   refresh-token:
     ttl-seconds: ${JWT_REFRESH_TTL:1209600}
+
+security:
+  password:
+    bcrypt-strength: ${SECURITY_BCRYPT_STRENGTH:12}
+    policy:
+      minimum-length: ${SECURITY_PASSWORD_MIN_LENGTH:12}
+      require-uppercase: true
+      require-lowercase: true
+      require-digit: true
+      require-special: true
+      special-characters: "!@#$%^&*()_+-=[]{}|;:'\",.<>/?"
+    compromised:
+      enabled: ${SECURITY_PASSWORD_COMPROMISED_ENABLED:false}
+      provider: ${SECURITY_PASSWORD_COMPROMISED_PROVIDER:none}
+      api-url: ${SECURITY_PASSWORD_COMPROMISED_API_URL:}
