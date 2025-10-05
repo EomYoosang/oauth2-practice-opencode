@@ -27,7 +27,7 @@ public class EmailSignupService {
     public EmailSignupResult register(EmailSignupCommand command) {
         Objects.requireNonNull(command, "command must not be null");
 
-        if (userRepository.existsByEmail(command.email())) {
+        if (userRepository.existsByEmailAccount_Email(command.email())) {
             throw new EmailAlreadyRegisteredException(command.email());
         }
 
