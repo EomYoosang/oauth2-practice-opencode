@@ -55,7 +55,9 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 ## 🔐 패스워드 해싱 구성
 - `support.security.PasswordHasher`가 BCrypt 기반 해싱/검증/재해싱 여부 판단을 담당합니다.
 - `security.password.bcrypt-strength`(기본 12, 테스트 4) 프로퍼티로 강도를 제어하며, 환경 변수 `SECURITY_BCRYPT_STRENGTH`로 재정의할 수 있습니다.
-- `user.application.EmailAccountRegistrationService`가 이메일 계정 등록 시 해싱을 적용하고, Issue #3에서 복잡도·유출 검증 절차를 추가할 계획입니다.
+- 복잡도 기본값(최소 12자, 대/소문자·숫자·특수문자 포함)은 `security.password.policy.*` 프로퍼티로 조정할 수 있으며, 환경 변수 `SECURITY_PASSWORD_MIN_LENGTH` 등으로 재정의 가능합니다.
+- `user.application.EmailAccountRegistrationService`가 이메일 계정 등록 시 해싱과 정책 검증을 수행합니다.
+- 유출 비밀번호 검사는 `security.password.compromised.*` 설정으로 토글할 수 있으며, 현재는 No-Op로 구성되어 향후 Pwned Passwords 등 외부 API 연동 시 활성화할 계획입니다.
 
 ## 🧪 테스트 & 빌드
 ```bash

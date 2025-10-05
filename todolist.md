@@ -8,7 +8,7 @@
 ## 1. 데이터 모델링
 - [x] `User`, `EmailAccount`, `GoogleAccount`, `KakaoAccount`, `AppleAccount` 엔티티 및 연관관계 설계 (LAZY, Builder 적용) (#1)
 - [x] 패스워드 해싱 처리용 지원 컴포넌트 정의 (BCrypt) 및 엔티티 저장 로직 연동 (#2)
-- [ ] 비밀번호 정책/복잡도/유출 검사 정책 수립 및 검증기 구현 계획 수립 (#3)
+- [x] 비밀번호 정책/복잡도/유출 검사 정책 수립 및 검증기 구현 계획 수립 (#3)
 
 ## 2. 인증 흐름 (이메일)
 - [ ] 이메일 회원가입 DTO/Validator/Controller/Service 작성 (테스트 선행)
