@@ -1,8 +1,13 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/oauth2?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
-    username: oauth2_local
-    password: oauth2_local
+    url: jdbc:h2:mem:oauth2_local;MODE=MYSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   data:
     redis:
       host: localhost
@@ -11,6 +16,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  sql:
+    init:
+      mode: never
   web:
     cors:
       allowed-origins: http://localhost:3000
