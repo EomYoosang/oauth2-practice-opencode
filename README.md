@@ -59,7 +59,8 @@ JAVA_HOME=$(/usr/libexec/java_home -v 17) ./gradlew test
 - 테스트 환경은 H2 (MySQL 호환 모드)를 사용하며, `src/test/resources/application.yml`에서 설정합니다.
 
 ## 🔀 브랜치 & .gitignore 정책
-- 이슈별 `feature/*` 브랜치를 사용하고, PR을 통해 `main`에 반영합니다.
+- 이슈별 `feature/*` 브랜치를 사용하고, 모든 PR은 `develop`을 대상으로 생성합니다.
+- 검토 완료 후 `develop` → `main` 순으로 머지합니다.
 - `.gitignore` 정책은 절대적으로 준수하며, `git add -f` 등으로 예외를 두지 않습니다.
 - 커밋 메시지·이슈·PR 제목/본문은 모두 한글로 작성, PR 본문에는 반드시 진행 이유를 포함합니다.
 
