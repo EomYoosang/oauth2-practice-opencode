@@ -18,3 +18,7 @@ spring:
 logging:
   level:
     com.eomyoosang.oauth2: DEBUG
+
+security:
+  password:
+    bcrypt-strength: 10
