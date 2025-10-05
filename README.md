@@ -47,9 +47,11 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 
 ## 🧪 테스트 & 빌드
 ```bash
-JAVA_HOME=$(/usr/libexec/java_home -v 17) ./gradlew test
+./gradlew test
+./gradlew bootRun
 ```
-- 테스트 환경은 H2 (MySQL 호환 모드)를 사용하며, `src/test/resources/application.yml`에서 설정합니다.
+- Gradle Wrapper가 JDK 17을 자동으로 탐색하므로 별도 `JAVA_HOME` 설정 없이 실행할 수 있습니다. (macOS는 `/usr/libexec/java_home`, Windows/Linux는 대표 설치 경로를 우선 탐색)
+- `local` 프로필은 H2 인메모리 데이터베이스(MySQL 모드)를 사용하므로 별도 MySQL 인스턴스가 필요하지 않습니다. 테스트 환경 설정은 `src/test/resources/application.yml`에 정리되어 있습니다.
 
 ## 🔀 브랜치 & .gitignore 정책
 - 이슈별 `feature/*` 브랜치를 사용하고, 모든 PR은 `develop`을 대상으로 생성합니다.
