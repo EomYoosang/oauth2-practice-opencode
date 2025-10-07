@@ -24,7 +24,7 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 | 엔드포인트 | 메서드 | 설명 | 상태 |
 | --- | --- | --- | --- |
 | `/auth/register/email` | POST | 이메일 회원가입 | ✅ 구현 (초안) |
-| `/auth/verify?token=` | GET | 이메일 인증 | ⏳ 예정 |
+| `/auth/verify?token=` | GET | 이메일 인증 | ✅ 구현 (토큰 소모 + 상태 갱신) |
 | `/auth/login/email` | POST | 이메일 로그인 + 토큰 발급 | ⏳ 예정 |
 | `/auth/token/refresh` | POST | 토큰 재발급 | ⏳ 예정 |
 | `/auth/password/reset/request` | POST | 비밀번호 재설정 요청 | ⏳ 예정 |

@@ -16,11 +16,14 @@ public class EmailSignupService {
 
     private final UserRepository userRepository;
     private final EmailAccountRegistrationService emailAccountRegistrationService;
+    private final EmailVerificationService emailVerificationService;
 
     public EmailSignupService(UserRepository userRepository,
-                              EmailAccountRegistrationService emailAccountRegistrationService) {
+                              EmailAccountRegistrationService emailAccountRegistrationService,
+                              EmailVerificationService emailVerificationService) {
         this.userRepository = userRepository;
         this.emailAccountRegistrationService = emailAccountRegistrationService;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @Transactional
@@ -38,6 +41,7 @@ public class EmailSignupService {
 
         emailAccountRegistrationService.register(user, command.email(), command.password());
         User saved = userRepository.save(user);
-        return new EmailSignupResult(saved);
+        String verificationToken = emailVerificationService.issueToken(saved);
+        return new EmailSignupResult(saved, verificationToken);
     }
 }

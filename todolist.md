@@ -12,7 +12,7 @@
 
 ## 2. 인증 흐름 (이메일)
 - [x] 이메일 회원가입 DTO/Validator/Controller/Service 작성 (테스트 선행)
-- [ ] 이메일 인증 토큰 발급·저장·검증 로직 구현 (`auth:ev:{token}`, GETDEL 원자화)
+- [x] 이메일 인증 토큰 발급·저장·검증 로직 구현 (`auth:ev:{token}`, GETDEL 원자화)
 - [ ] 이메일 로그인 및 Refresh Token 발급/회전 서비스 구현 (deviceId 고려)
 - [ ] 비밀번호 재설정 요청/확정 API 구현 (쿨다운 및 단일 사용 처리)
 - [ ] 비밀번호 변경 시 전체 세션 무효화 및 알림 UX 정의

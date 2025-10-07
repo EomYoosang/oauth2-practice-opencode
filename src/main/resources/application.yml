@@ -55,6 +55,12 @@ jwt:
   refresh-token:
     ttl-seconds: ${JWT_REFRESH_TTL:1209600}
 
+auth:
+  email-verification:
+    ttl-seconds: ${AUTH_EMAIL_VERIFICATION_TTL:1800}
+    token-byte-length: ${AUTH_EMAIL_VERIFICATION_TOKEN_BYTES:32}
+    key-prefix: ${AUTH_EMAIL_VERIFICATION_KEY_PREFIX:auth:ev:}
+
 security:
   password:
     bcrypt-strength: ${SECURITY_BCRYPT_STRENGTH:12}

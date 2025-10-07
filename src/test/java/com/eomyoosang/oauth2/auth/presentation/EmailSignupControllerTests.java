@@ -49,14 +49,15 @@ class EmailSignupControllerTests {
                 .joinedAt(LocalDateTime.now())
                 .build();
         when(emailSignupService.register(any(EmailSignupCommand.class)))
-                .thenReturn(new EmailSignupResult(user));
+                .thenReturn(new EmailSignupResult(user, "token-value"));
 
         mockMvc.perform(post("/auth/register/email")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new SignupPayload("user@example.com", "StrongPass123!", "테스터"))))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.statusCode").value(201))
-                .andExpect(jsonPath("$.message").value("회원가입 성공, 인증 메일을 확인하세요."));
+                .andExpect(jsonPath("$.message").value("회원가입 성공, 인증 메일을 확인하세요."))
+                .andExpect(jsonPath("$.verificationToken").value("token-value"));
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.eomyoosang.oauth2.auth.presentation;
 
 import com.eomyoosang.oauth2.auth.application.EmailSignupService;
 import com.eomyoosang.oauth2.auth.application.command.EmailSignupCommand;
+import com.eomyoosang.oauth2.auth.application.result.EmailSignupResult;
 import com.eomyoosang.oauth2.auth.dto.EmailSignupRequest;
 import com.eomyoosang.oauth2.auth.dto.EmailSignupResponse;
 import jakarta.validation.Valid;
@@ -22,7 +23,8 @@ public class EmailSignupController {
 
     @PostMapping("/auth/register/email")
     public ResponseEntity<EmailSignupResponse> register(@Valid @RequestBody EmailSignupRequest request) {
-        emailSignupService.register(new EmailSignupCommand(request.email(), request.password(), request.name()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(EmailSignupResponse.success());
+        EmailSignupResult result = emailSignupService.register(new EmailSignupCommand(request.email(), request.password(), request.name()));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(EmailSignupResponse.success(result.verificationToken()));
     }
 }
