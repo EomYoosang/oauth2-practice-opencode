@@ -1,5 +1,8 @@
 # To-Do List
 
+## 🔥 High Priority
+- [ ] (P0) 생성자 주입 → @Autowired 필드 주입 리팩터링 ([#49](https://github.com/EomYoosang/oauth2-practice-opencode/issues/49))
+
 ## 0. Foundation
 - [x] 확정된 도메인 패키지 구조 수립 (`auth`, `user`, `token`, `provider`, `config`, `support`) 및 Rule 기반 DDD 디렉토리 반영
 - [x] Spring Security, OAuth2 Client, Redis, Validation, Lombok 등 필수 의존성 검토 및 Gradle 설정 확정
