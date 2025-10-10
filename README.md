@@ -7,8 +7,8 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 | --- | --- | --- | --- |
 
 | 0. Foundation | #1, #36 관련 선행 작업 | ✅ 완료 | 패키지 구조, Gradle 의존성, 프로필 설정 |
-| 1. 데이터 모델링 | [#1](https://github.com/EomYoosang/oauth2-practice-opencode/issues/1)~[#3](https://github.com/EomYoosang/oauth2-practice-opencode/issues/3) | 🚧 진행 중 | UUID PK, 패스워드 정책/해싱 (PR [#39](https://github.com/EomYoosang/oauth2-practice-opencode/pull/39), [#40](https://github.com/EomYoosang/oauth2-practice-opencode/pull/40), [#41](https://github.com/EomYoosang/oauth2-practice-opencode/pull/41)) |
-| 2. 이메일 인증 흐름 | [#4](https://github.com/EomYoosang/oauth2-practice-opencode/issues/4)~[#8](https://github.com/EomYoosang/oauth2-practice-opencode/issues/8) | 🚧 진행 중 | 이메일 회원가입 DTO/Controller/Service 초안 (PR 예정) |
+| 1. 데이터 모델링 | [#1](https://github.com/EomYoosang/oauth2-practice-opencode/issues/1)~[#3](https://github.com/EomYoosang/oauth2-practice-opencode/issues/3) | ✅ 완료 | UUID PK, 패스워드 정책/해싱 (PR [#39](https://github.com/EomYoosang/oauth2-practice-opencode/pull/39), [#40](https://github.com/EomYoosang/oauth2-practice-opencode/pull/40), [#41](https://github.com/EomYoosang/oauth2-practice-opencode/pull/41)) |
+| 2. 이메일 인증 흐름 | [#4](https://github.com/EomYoosang/oauth2-practice-opencode/issues/4)~[#8](https://github.com/EomYoosang/oauth2-practice-opencode/issues/8) | 🚧 진행 중 | 이메일 회원가입 초안 완료, 인증 토큰 발급·검증 구현 (Issue [#5](https://github.com/EomYoosang/oauth2-practice-opencode/issues/5), PR [#48](https://github.com/EomYoosang/oauth2-practice-opencode/pull/48)) |
 | 3. 소셜 로그인 | [#9](https://github.com/EomYoosang/oauth2-practice-opencode/issues/9)~[#12](https://github.com/EomYoosang/oauth2-practice-opencode/issues/12) | ⏳ 예정 | OAuth 클라이언트 설정, 프로바이더 매핑 |
 | 4. 토큰 & 세션 관리 | [#13](https://github.com/EomYoosang/oauth2-practice-opencode/issues/13)~[#17](https://github.com/EomYoosang/oauth2-practice-opencode/issues/17) | ⏳ 예정 | JWT 전략, Redis 키 구조, device 관리 |
 | 5. 보안 & 레이트 리밋 | [#18](https://github.com/EomYoosang/oauth2-practice-opencode/issues/18)~[#21](https://github.com/EomYoosang/oauth2-practice-opencode/issues/21) | ⏳ 예정 | 레이트 리밋, CSRF, 감사 로그, MFA |
@@ -24,7 +24,7 @@ Spring Boot 기반으로 이메일 및 소셜(OAuth2) 인증을 통합 제공하
 | 엔드포인트 | 메서드 | 설명 | 상태 |
 | --- | --- | --- | --- |
 | `/auth/register/email` | POST | 이메일 회원가입 | ✅ 구현 (초안) |
-| `/auth/verify?token=` | GET | 이메일 인증 | ⏳ 예정 |
+| `/auth/verify?token=` | GET | 이메일 인증 | ✅ 구현 (토큰 소모 + 상태 갱신) |
 | `/auth/login/email` | POST | 이메일 로그인 + 토큰 발급 | ⏳ 예정 |
 | `/auth/token/refresh` | POST | 토큰 재발급 | ⏳ 예정 |
 | `/auth/password/reset/request` | POST | 비밀번호 재설정 요청 | ⏳ 예정 |

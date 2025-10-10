@@ -63,4 +63,8 @@ public class User extends PrimaryKeyEntity {
             this.emailAccount = null;
         }
     }
+
+    public void activate() {
+        this.status = UserStatus.ACTIVE;
+    }
 }
