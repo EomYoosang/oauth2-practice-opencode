@@ -8,23 +8,17 @@ import com.eomyoosang.oauth2.user.domain.User;
 import com.eomyoosang.oauth2.user.domain.UserRepository;
 import com.eomyoosang.oauth2.user.domain.UserStatus;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class EmailSignupService {
 
     private final UserRepository userRepository;
     private final EmailAccountRegistrationService emailAccountRegistrationService;
     private final EmailVerificationService emailVerificationService;
-
-    public EmailSignupService(UserRepository userRepository,
-                              EmailAccountRegistrationService emailAccountRegistrationService,
-                              EmailVerificationService emailVerificationService) {
-        this.userRepository = userRepository;
-        this.emailAccountRegistrationService = emailAccountRegistrationService;
-        this.emailVerificationService = emailVerificationService;
-    }
 
     @Transactional
     public EmailSignupResult register(EmailSignupCommand command) {

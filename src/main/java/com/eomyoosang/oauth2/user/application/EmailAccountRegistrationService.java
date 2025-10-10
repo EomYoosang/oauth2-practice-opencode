@@ -5,19 +5,15 @@ import com.eomyoosang.oauth2.support.security.PasswordPolicyValidator;
 import com.eomyoosang.oauth2.user.domain.EmailAccount;
 import com.eomyoosang.oauth2.user.domain.User;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmailAccountRegistrationService {
 
     private final PasswordPolicyValidator passwordPolicyValidator;
     private final PasswordHasher passwordHasher;
-
-    public EmailAccountRegistrationService(PasswordPolicyValidator passwordPolicyValidator,
-                                           PasswordHasher passwordHasher) {
-        this.passwordPolicyValidator = passwordPolicyValidator;
-        this.passwordHasher = passwordHasher;
-    }
 
     public EmailAccount register(User user, String email, String rawPassword) {
         Objects.requireNonNull(user, "user must not be null");

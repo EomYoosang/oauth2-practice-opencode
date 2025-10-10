@@ -1,16 +1,14 @@
 package com.eomyoosang.oauth2.support.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class BCryptPasswordHasher implements PasswordHasher {
 
     private final PasswordEncoder passwordEncoder;
-
-    public BCryptPasswordHasher(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Override
     public String hash(CharSequence rawPassword) {
