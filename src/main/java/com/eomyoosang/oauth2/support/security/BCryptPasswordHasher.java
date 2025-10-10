@@ -1,16 +1,14 @@
 package com.eomyoosang.oauth2.support.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BCryptPasswordHasher implements PasswordHasher {
 
-    private final PasswordEncoder passwordEncoder;
-
-    public BCryptPasswordHasher(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public String hash(CharSequence rawPassword) {

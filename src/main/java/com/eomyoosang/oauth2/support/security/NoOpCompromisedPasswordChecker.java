@@ -3,6 +3,7 @@ package com.eomyoosang.oauth2.support.security;
 import com.eomyoosang.oauth2.config.security.PasswordProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,15 +11,13 @@ public class NoOpCompromisedPasswordChecker implements CompromisedPasswordChecke
 
     private static final Logger log = LoggerFactory.getLogger(NoOpCompromisedPasswordChecker.class);
 
-    private final PasswordProperties.Compromised properties;
-
-    public NoOpCompromisedPasswordChecker(PasswordProperties properties) {
-        this.properties = properties.getCompromised();
-    }
+    @Autowired
+    private PasswordProperties passwordProperties;
 
     @Override
     public boolean isCompromised(String rawPassword) {
-        if (properties.isEnabled()) {
+        PasswordProperties.Compromised compromised = passwordProperties.getCompromised();
+        if (compromised.isEnabled()) {
             log.warn("Compromised password checking is enabled but no provider is configured; treating as safe.");
         }
         return false;
@@ -26,6 +25,6 @@ public class NoOpCompromisedPasswordChecker implements CompromisedPasswordChecke
 
     @Override
     public String provider() {
-        return properties.getProvider();
+        return passwordProperties.getCompromised().getProvider();
     }
 }

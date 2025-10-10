@@ -5,6 +5,7 @@ import com.eomyoosang.oauth2.auth.application.command.EmailSignupCommand;
 import com.eomyoosang.oauth2.auth.dto.EmailSignupRequest;
 import com.eomyoosang.oauth2.auth.dto.EmailSignupResponse;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,11 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmailSignupController {
 
-    private final EmailSignupService emailSignupService;
-
-    public EmailSignupController(EmailSignupService emailSignupService) {
-        this.emailSignupService = emailSignupService;
-    }
+    @Autowired
+    private EmailSignupService emailSignupService;
 
     @PostMapping("/auth/register/email")
     public ResponseEntity<EmailSignupResponse> register(@Valid @RequestBody EmailSignupRequest request) {

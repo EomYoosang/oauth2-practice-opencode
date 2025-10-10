@@ -8,20 +8,18 @@ import com.eomyoosang.oauth2.user.domain.User;
 import com.eomyoosang.oauth2.user.domain.UserRepository;
 import com.eomyoosang.oauth2.user.domain.UserStatus;
 import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmailSignupService {
 
-    private final UserRepository userRepository;
-    private final EmailAccountRegistrationService emailAccountRegistrationService;
+    @Autowired
+    private UserRepository userRepository;
 
-    public EmailSignupService(UserRepository userRepository,
-                              EmailAccountRegistrationService emailAccountRegistrationService) {
-        this.userRepository = userRepository;
-        this.emailAccountRegistrationService = emailAccountRegistrationService;
-    }
+    @Autowired
+    private EmailAccountRegistrationService emailAccountRegistrationService;
 
     @Transactional
     public EmailSignupResult register(EmailSignupCommand command) {

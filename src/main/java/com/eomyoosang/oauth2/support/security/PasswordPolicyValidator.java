@@ -5,29 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordPolicyValidator {
 
-    private final PasswordProperties.Policy policy;
-    private final CompromisedPasswordChecker compromisedPasswordChecker;
+    @Autowired
+    private PasswordProperties properties;
+
+    @Autowired
+    private CompromisedPasswordChecker compromisedPasswordChecker;
 
     private final Pattern uppercasePattern = Pattern.compile(".*[A-Z].*");
     private final Pattern lowercasePattern = Pattern.compile(".*[a-z].*");
     private final Pattern digitPattern = Pattern.compile(".*[0-9].*");
-
-    public PasswordPolicyValidator(PasswordProperties properties,
-                                   CompromisedPasswordChecker compromisedPasswordChecker) {
-        this.policy = properties.getPolicy();
-        this.compromisedPasswordChecker = compromisedPasswordChecker;
-    }
 
     public PasswordValidationResult validate(CharSequence rawPassword) {
         Objects.requireNonNull(rawPassword, "rawPassword must not be null");
 
         String password = rawPassword.toString();
         List<String> violations = new ArrayList<>();
+        PasswordProperties.Policy policy = properties.getPolicy();
 
         if (password.length() < policy.getMinimumLength()) {
             violations.add("비밀번호는 최소 %d자 이상이어야 합니다.".formatted(policy.getMinimumLength()));

@@ -5,19 +5,17 @@ import com.eomyoosang.oauth2.support.security.PasswordPolicyValidator;
 import com.eomyoosang.oauth2.user.domain.EmailAccount;
 import com.eomyoosang.oauth2.user.domain.User;
 import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmailAccountRegistrationService {
 
-    private final PasswordPolicyValidator passwordPolicyValidator;
-    private final PasswordHasher passwordHasher;
+    @Autowired
+    private PasswordPolicyValidator passwordPolicyValidator;
 
-    public EmailAccountRegistrationService(PasswordPolicyValidator passwordPolicyValidator,
-                                           PasswordHasher passwordHasher) {
-        this.passwordPolicyValidator = passwordPolicyValidator;
-        this.passwordHasher = passwordHasher;
-    }
+    @Autowired
+    private PasswordHasher passwordHasher;
 
     public EmailAccount register(User user, String email, String rawPassword) {
         Objects.requireNonNull(user, "user must not be null");
