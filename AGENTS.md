@@ -4,7 +4,7 @@
 - 모든 문서는 한글로 작성한다.
 
 ## 1. Spring Boot Code Convention
-- laungauge: java17
+- language: java17
 - framework: springboot 3.5.6
 - database: mysql8, redis-cli 7.0.8
 - deploy os: ubuntu
