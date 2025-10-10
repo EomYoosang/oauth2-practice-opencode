@@ -1,5 +1,8 @@
 # To-Do List
 
+## 🔥 High Priority
+- [ ] (P0) 생성자 주입 → @Autowired 필드 주입 리팩터링 ([#49](https://github.com/EomYoosang/oauth2-practice-opencode/issues/49))
+
 ## 0. Foundation
 - [x] 확정된 도메인 패키지 구조 수립 (`auth`, `user`, `token`, `provider`, `config`, `support`) 및 Rule 기반 DDD 디렉토리 반영
 - [x] Spring Security, OAuth2 Client, Redis, Validation, Lombok 등 필수 의존성 검토 및 Gradle 설정 확정
@@ -12,7 +15,7 @@
 
 ## 2. 인증 흐름 (이메일)
 - [x] 이메일 회원가입 DTO/Validator/Controller/Service 작성 (테스트 선행)
-- [ ] 이메일 인증 토큰 발급·저장·검증 로직 구현 (`auth:ev:{token}`, GETDEL 원자화)
+- [x] 이메일 인증 토큰 발급·저장·검증 로직 구현 (`auth:ev:{token}`, GETDEL 원자화)
 - [ ] 이메일 로그인 및 Refresh Token 발급/회전 서비스 구현 (deviceId 고려)
 - [ ] 비밀번호 재설정 요청/확정 API 구현 (쿨다운 및 단일 사용 처리)
 - [ ] 비밀번호 변경 시 전체 세션 무효화 및 알림 UX 정의

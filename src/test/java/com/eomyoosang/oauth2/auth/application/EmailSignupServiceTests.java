@@ -35,6 +35,9 @@ class EmailSignupServiceTests {
     @Mock
     private EmailAccountRegistrationService registrationService;
 
+    @Mock
+    private EmailVerificationService emailVerificationService;
+
     @InjectMocks
     private EmailSignupService emailSignupService;
 
@@ -60,12 +63,14 @@ class EmailSignupServiceTests {
         });
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         when(userRepository.save(userCaptor.capture())).thenAnswer(invocation -> invocation.getArgument(0));
+        when(emailVerificationService.issueToken(any(User.class))).thenReturn("token");
 
         var result = emailSignupService.register(command);
 
         assertThat(result.user().getDisplayName()).isEqualTo("테스터");
         assertThat(result.user().getStatus()).isEqualTo(UserStatus.PENDING);
         assertThat(result.user().getEmailAccount()).isNotNull();
+        assertThat(result.verificationToken()).isEqualTo("token");
         verify(userRepository).save(any(User.class));
     }
 
@@ -78,6 +83,7 @@ class EmailSignupServiceTests {
 
         verify(registrationService, never()).register(any(), any(), any());
         verify(userRepository, never()).save(any());
+        verify(emailVerificationService, never()).issueToken(any());
     }
 
     @Test
@@ -90,5 +96,6 @@ class EmailSignupServiceTests {
                 .isInstanceOf(InvalidPasswordException.class);
 
         verify(userRepository, never()).save(any());
+        verify(emailVerificationService, never()).issueToken(any());
     }
 }

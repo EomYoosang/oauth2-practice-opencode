@@ -36,6 +36,7 @@ public class EmailSignupService {
 
         emailAccountRegistrationService.register(user, command.email(), command.password());
         User saved = userRepository.save(user);
-        return new EmailSignupResult(saved);
+        String verificationToken = emailVerificationService.issueToken(saved);
+        return new EmailSignupResult(saved, verificationToken);
     }
 }
