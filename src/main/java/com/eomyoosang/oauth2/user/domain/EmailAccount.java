@@ -72,4 +72,11 @@ public class EmailAccount extends PrimaryKeyEntity {
     void detachFromUser() {
         this.user = null;
     }
+
+    public void markVerified() {
+        if (!this.verified) {
+            this.verified = true;
+            this.verifiedAt = LocalDateTime.now();
+        }
+    }
 }

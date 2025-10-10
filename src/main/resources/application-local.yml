@@ -42,3 +42,7 @@ security:
       special-characters: "!@#$%^&*()_+-=[]{}|;:'\",.<>/?"
     compromised:
       enabled: false
+
+auth:
+  email-verification:
+    ttl-seconds: 900
