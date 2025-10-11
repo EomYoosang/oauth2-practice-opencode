@@ -50,10 +50,14 @@ management:
         include: health,info
 
 jwt:
+  secret: ${JWT_SECRET:dev-secret-key-should-be-long-enough-123456}
+  issuer: ${JWT_ISSUER:oauth2-practice}
   access-token:
     ttl-seconds: ${JWT_ACCESS_TTL:900}
   refresh-token:
     ttl-seconds: ${JWT_REFRESH_TTL:1209600}
+    key-prefix: "${JWT_REFRESH_KEY_PREFIX:auth:rt:}"
+    device-registry-prefix: "${JWT_DEVICE_REGISTRY_PREFIX:auth:dev:}"
 
 auth:
   email-verification:

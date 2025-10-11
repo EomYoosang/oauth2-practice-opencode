@@ -67,4 +67,8 @@ public class User extends PrimaryKeyEntity {
     public void activate() {
         this.status = UserStatus.ACTIVE;
     }
+
+    public void recordSuccessfulLogin() {
+        this.lastLoginAt = LocalDateTime.now();
+    }
 }

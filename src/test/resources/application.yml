@@ -27,3 +27,13 @@ security:
       special-characters: "!@#$%^&*()_+-=[]{}|;:'\",.<>/?"
     compromised:
       enabled: false
+
+jwt:
+  secret: test-secret-key-should-be-long-enough-123456
+  issuer: test-suite
+  access-token:
+    ttl-seconds: 900
+  refresh-token:
+    ttl-seconds: 1800
+    key-prefix: "test:auth:rt:"
+    device-registry-prefix: "test:auth:dev:"
