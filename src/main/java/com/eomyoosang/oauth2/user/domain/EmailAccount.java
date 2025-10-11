@@ -79,4 +79,13 @@ public class EmailAccount extends PrimaryKeyEntity {
             this.verifiedAt = LocalDateTime.now();
         }
     }
+
+    public void recordSuccessfulLogin() {
+        this.lastLoginAt = LocalDateTime.now();
+    }
+
+    public void updatePasswordHash(String newPasswordHash) {
+        this.passwordHash = Objects.requireNonNull(newPasswordHash, "newPasswordHash must not be null");
+        this.passwordChangedAt = LocalDateTime.now();
+    }
 }

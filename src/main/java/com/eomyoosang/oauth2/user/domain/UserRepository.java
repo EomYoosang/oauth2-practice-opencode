@@ -2,13 +2,11 @@ package com.eomyoosang.oauth2.user.domain;
 
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends Repository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
 
     boolean existsByEmailAccount_Email(String email);
 
-    User save(User user);
-
-    Optional<User> findById(UUID id);
+    Optional<User> findByEmailAccount_Email(String email);
 }
